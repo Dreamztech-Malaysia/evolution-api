@@ -535,11 +535,12 @@ export class ChannelStartupService {
 
     const cleanedMessage = { ...message };
 
-    const mediaUrl = cleanedMessage.message.mediaUrl;
-
-    delete cleanedMessage.message.base64;
-
     if (cleanedMessage.message) {
+      if (cleanedMessage.message.base64) {
+        delete cleanedMessage.message.base64;
+      }
+
+      delete cleanedMessage.message.base64;
       // Limpa imageMessage
       if (cleanedMessage.message.imageMessage) {
         cleanedMessage.message.imageMessage = {
@@ -582,8 +583,6 @@ export class ChannelStartupService {
         };
       }
     }
-
-    if (mediaUrl) cleanedMessage.message.mediaUrl = mediaUrl;
 
     return cleanedMessage;
   }
