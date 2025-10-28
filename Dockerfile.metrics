@@ -1,4 +1,4 @@
-FROM evoapicloud/evolution-api:latest AS base
+FROM flatpaddy/evolution-api:latest AS base
 WORKDIR /evolution
 
 # Copiamos apenas o necessário para recompilar o dist com as mudanças locais
@@ -9,7 +9,7 @@ COPY src ./src
 RUN npm run build
 
 # Runtime final: reaproveita a imagem oficial e apenas sobrepõe o dist
-FROM evoapicloud/evolution-api:latest AS final
+FROM flatpaddy/evolution-api:latest AS final
 WORKDIR /evolution
 COPY --from=base /evolution/dist ./dist
 
