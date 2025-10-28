@@ -1,1 +1,11 @@
-npx --no -- commitlint --edit $1
+#!/bin/sh
+# Ensure Node is available in non-interactive shells (nvm users)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+# Run commitlint using npx when available, otherwise fallback to npm exec
+if command -v npx >/dev/null 2>&1; then
+	npx --no -- commitlint --edit "$1"
+else
+	npm exec -- commitlint --edit "$1"
+fi
